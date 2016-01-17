@@ -82,7 +82,8 @@ function createConnection(opts) {
   var self = new EventEmitter();
   if (!opts) opts = {};
   var stream = self.stream = createStream(opts);
-  stream.setNoDelay();
+  if (typeof stream.setNoDelay === 'function')
+    stream.setNoDelay();
 
   stream.on('error', function(err) {
     // forward network and stream errors
